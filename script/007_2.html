@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>const/let 과 hoist</title>
+</head>
+<body>
+  <script>
+    // b is not defined - b 라는 변수가 없다
+    // console.log(b);
+
+    // Cannot access 'a' before initalization - a 는 초기화 되기 전까지 접근할 수 없다
+    // const 나 let 을 사용하면 hoist 되지 않는다? 그럼 오류 메시지가 11라인 하고 같아야 할 거 아냐?
+    // 13 라인 에러 메세지는 "초기화 하기 전에 a에 접근할 수 없다" → a 가 있다는 말이네 → hoist가 됐네
+    
+    console.log("before : " + a);
+    const a = 10;
+    console.log("after : " + a);
+
+    // 90년대 초중반에 웹브라우저하면 "netscape"
+    // 넷스케이프 개발자들이 간단하게 움직이는 웹을 위해서 10일만에 만든 언어 → 자바스크립트
+      // 대충대충 에러 안 나고 알아서 움직이는 간단한 언어
+  </script>
+</body>
+</html>

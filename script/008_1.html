@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8. 배열 메소드</title>
+</head>
+<body>
+  <script>
+    const ar = [75, 80, 85, 55, 90];
+
+    // 1. forEach 를 사용해 ar의 모든 원소에 대해 반복하기
+      // forEach() 에서 () 에 오는 함수는 "파라미터는 있고 리턴은 없다" → 자바에서는 Consumer 인터페이스
+    // 원래라면 ar.forEach(function(a) {
+      // console.log(a);  
+    // });
+
+    // ar.forEach((a)=> {
+      // console.log(a);  
+    // });
+
+    // 코드가 한 줄이면 중괄호 생략 가능, 파라미터의 () 생략 가능 (단, 파라미터가 없는 경우는 생략 불가)
+    // 파라미터가 없으면 ar.forEach(()=>{ })
+    // ar.forEach(a=>console.log(a)); 
+
+    // 2. filter 를 이용해서 조건에 맞는 원소만 선택하기
+        // 입력은 있고 출력은 참거짓인 화살표 함수가 온다 → 자바의 Predicate 인터페이스
+        // 중괄호가 들어간다면 return 이 있어야함 중괄호가 생략되면 return 도 생략 가능
+    // ar.filter(a=>{
+    //   return a%2==0;
+    // }).forEach(a=>console.log(a));
+
+    // ar.filter(a=>a%2==0).forEach(a=>console.log(a));
+
+    // 70점 이상인 점수만 출력하기
+    ar.filter(a=>a>=70).forEach(a=>console.log(a));
+
+    // 3. map 을 이용해서 값을 다른 타입으로 변환하기
+        // 입력, 출력 모두 있다
+  
+
+    // ar에서 70점 이상인 점수만 "75점으로 합격" 과 같은 식으로 출력
+      ar.filter(a=>a>=70).map(a=>`${a} 점으로 합격`).forEach(a=>console.log(a));
+  </script>
+</body>
+</html>

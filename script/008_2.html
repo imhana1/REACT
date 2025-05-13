@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--
+    버튼을 클릭하면 70점 이상 또는 80점 이상이 점수만 추출해서 출력
+  -->
+  <ul id="target">
+  </ul>
+  <button onclick="score70()">70점 이상</button>
+  <button onclick="score80()">80점 이상</button>
+  <script>
+    const scores = [75, 85, 55, 65, 95];
+    // const ar = scores.filter(a=>a>=70); 라고 하면 70점 이상인 배열 추출
+    const target = document.getElementById('target');
+
+    function score70() {
+      let html='';
+      scores.filter(score=>score>=70).forEach(score=>html=html+`<li>${score}</li>`);
+      target.innerHTML=html;
+    };
+
+    function score80() {
+      let html='';
+      scores.filter(score=>score>=80).forEach(score=>html=html+`<li>${score}</li>`);
+      target.innerHTML=html;
+    };
+
+
+  </script>
+</body>
+</html>

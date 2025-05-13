@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. 구조분해 할당</title>
+</head>
+<body>
+    <script>    
+        const arr = [100, 200];
+        // 배열을 풀어헤치면서 변수로 저장
+        const [first, second] = arr;
+
+        // ↓ 객체의 구조분해 할당
+        const obj = {name:'홍길동', nai:20};
+        const {name, nai} = obj;
+
+        console.log(first, second);
+        console.log(name, nai);
+
+        // 구조분해할당을 이용해 객체를 출력
+        // 객체를 파라미터로 받은 다음 구조분해 할당
+        function print1(obj) {
+            // const name = obj.name;
+            // const nai = obj.nai;
+            // ↑ 와 같은 표현 ↓
+            const {name, nai} = obj;
+            console.log(`${name}, ${nai}`);
+        } 
+        
+        // 파라미터 객체를 바로 구조분해할당
+        function print2({name, nai}) {
+            console.log(`${name}, ${nai}`);
+        }
+    </script>
+</body>
+</html>

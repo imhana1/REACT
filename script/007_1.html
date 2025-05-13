@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7. hoist</title>
+</head>
+<body>
+  <script>
+    // hoist : 끌어올리다
+    // 선언 : 뭔가가 있다. var x = 10;
+
+    console.log("before :" + x);
+    //  var : ES5 에서 변수를 선언하는 키워드
+    var x = 100;
+    console.log("after : " + x);
+
+    // ↓
+    /*
+      var x;
+      console.log("before :" + x);
+      x=100;
+      console.log("after:" + x);
+
+      선언은 무조건 위로 올라오게 됨 
+    */
+  </script>
+</body>
+</html>
