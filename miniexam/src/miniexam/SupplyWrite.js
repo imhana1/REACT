@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 
 const SupplyWrite = () => {
-    const [inputs, setInputs] = useState({ sno: '', name: '', quantity: ''})
+    const [inputs, setInputs] = useState({ name: '', quantity: ''})
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -20,22 +20,18 @@ const SupplyWrite = () => {
 
     return (
         <div>
-            <div className='mb-3 mt-3'>
-                <label htmlFor='sno' className='form-label'>
-                    상품 번호
-                </label>
-                <input type='sno' className='form-control' placeholder='상품 추가' name='sno' onChange={onChange} />           
-            </div>
             <div className='mb-3'>
                 <label htmlFor='name' className='form-control'>
                     이름 : 
                 </label>
                 <input type='name' className='form-control' name='name' onChange={onChange}/>
-            </div>            
-            <div className='mb-3'>
-                <label htmlFor='quantuty'>수량 : </label>
-                <textarea className='form-control' rows='5' name='quantity' onChange={onChange}/>
-            </div>
+            </div>      
+            <div className='mb-3 mt-3'>
+                <label htmlFor='quantuty' className='form-label'>
+                    수량 : 
+                </label>
+                <input type='quantuty' className='form-control' placeholder='수량' name='quantuty' onChange={onChange} />           
+            </div>      
             <button className='btn btn-primary' onClick={doWrite}>저장</button>
         </div>
     );
