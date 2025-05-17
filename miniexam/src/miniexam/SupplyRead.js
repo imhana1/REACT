@@ -25,16 +25,16 @@ const SupplyRead = () => {
     console.log(sno);
   });
 
-  const toggle = async (sno) => {
-    try {
-      const response = await axios.put(
-        `https://mini03.onrender.com/supplies/toggle/${sno}`
-      );
-      setSupply((prev) => ({ ...prev, finish: response.data }));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const toggle = async (sno) => {
+  //   try {
+  //     const response = await axios.put(
+  //       `https://mini03.onrender.com/supplies/toggle/${sno}`
+  //     );
+  //     setSupply((prev) => ({ ...prev, finish: response.data }));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const inc = () => {
     setSupply({ ...supply, count: supply.count + 1 });
