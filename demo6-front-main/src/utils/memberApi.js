@@ -6,6 +6,10 @@ export const signup = (formData) => api.post(`/api/members/new`, formData);
 
 export const findUsername = (email) => api.get(`/api/members/username?email=${email}`);
 
+export const findPassword = (username) => api.put(`/api/members/password?username=${username}`);
+
+export const checkPassword = (password) => api.get(`/api/members/password?password=${password}`);
+
 // username과 password를 urlencoding방식으로 보내려면  URLSearchParams 객체를 생성한다
 export const login = (object) => api.post(`/login`, new URLSearchParams(object));
 

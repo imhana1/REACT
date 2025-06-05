@@ -3,7 +3,7 @@
 import { Navigate } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({element}) => {
     const username = useAuthStore(state => state.username);
 
     // 로그인이 아직 확인되지 않았다면 종료
