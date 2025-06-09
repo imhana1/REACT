@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import styles from './Posts.module.css';
-import usePostStore from '../../stores/usePostStore';
 
-function Posts() {
-  const posts = usePostStore(state=>state.posts);
+function Posts({posts}) {
+
   return (
     <table className='table table-hover'>
       <thead>

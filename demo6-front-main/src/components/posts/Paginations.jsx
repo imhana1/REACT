@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
-import usePostStore from '../../stores/usePostStore';
 
-const Paginations = () => {
+const Paginations = ({pagination}) => {
   // 1. 예를 들어 1페이지 상태에서 다음으로(6페이지)를 누르면
   // 2. store에서 1페이지 pagination을 읽어온다 -> useEffect가 실행된다 -> 화면에 출력
   // 3. 그동안 PageList의 useEffect에서 6페이지의 데이터를 fetch한다
@@ -11,7 +10,6 @@ const Paginations = () => {
   // 5. PageList가 store의 pagination을 변경하면 자식인 Paginations가 그 변경에 따라 useEffect를 다시 계산
   //    useEffect(()=>{}, [pagination])
 
-  const pagination = usePostStore(state=>state.pagination);
   const {prev,start,end,next,pageno} = pagination;
   const [pages, setPages] = useState([]);
   const navigate = useNavigate();

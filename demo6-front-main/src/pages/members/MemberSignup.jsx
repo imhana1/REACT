@@ -9,7 +9,6 @@ import useEmail from "../../hooks/useEmail";
 import usePassword from "../../hooks/usePassword"
 import useProfile from "../../hooks/useProfile";
 import useUsername from "../../hooks/useUsername";
-import api from "../../utils/api";
 import { AsyncStatus } from "../../utils/constant";
 import { Alert } from "react-bootstrap";
 import { signup } from "../../utils/memberApi";

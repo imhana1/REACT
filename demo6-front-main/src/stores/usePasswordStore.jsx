@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
-const useMemberStore = create((set) => ({
+const usePasswordStore = create((set) => ({
   isPasswordVerified: false,
 
   setPasswordVerified: () =>
     set((state) => ({ ...state, isPasswordVerified: true })),
 }));
 
-export default useMemberStore;
+export default usePasswordStore;

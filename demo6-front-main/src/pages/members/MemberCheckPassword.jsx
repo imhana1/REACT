@@ -3,19 +3,20 @@
 // - MemberCheckPassword 저장
 // - MemberRead에서 확인. 확인되지 않은 경우 MemberCheckPassword로 이동
 
-import useMemberStore from "../../stores/useMemberStore";
+import usePasswordStore from "../../stores/usePasswordStore";
 import { AsyncStatus } from "../../utils/constant";
 import usePassword from "../../hooks/usePassword";
 import { Alert } from "react-bootstrap";
 import TextField from "../../components/commons/TextField";
 import BlockButton from "../../components/commons/BlockButton";
 import { checkPassword } from "../../utils/memberApi";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const MemberCheckPassword = () => {
-    const isPasswordVerified = useMemberStore(state=> state.isPasswordVerified);
-    const setPasswordVerified = useMemberStore(state => state.setPasswordVerified);
+    // 1. 훅 정의
+    const isPasswordVerified = usePasswordStore(state=> state.isPasswordVerified);
+    const setPasswordVerified = usePasswordStore(state => state.setPasswordVerified);
     const [submittingStatus, setSubmittingStatus] = useState(AsyncStatus.IDLE);
     const vPassword = usePassword();
     const navigate = useNavigate();
@@ -40,6 +41,9 @@ const MemberCheckPassword = () => {
             console.log(err);
         }
     }
+
+    // 조건부 렌더링
+    if (isPasswordVerified) return <Navigate to='/member/read' />
 
     return (
         <div>

@@ -19,7 +19,9 @@ function usePassword() {
     return false;
   }
 
-  return {value, message, onChange, onBlur};
+  const reset = () => setValue('');
+
+  return {value, message, onChange, onBlur, reset};
 }
 
 export default usePassword
