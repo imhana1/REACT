@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 const usePasswordStore = create((set) => ({
+  // 비밀번호 확인 여부
   isPasswordVerified: false,
 
   setPasswordVerified: () =>

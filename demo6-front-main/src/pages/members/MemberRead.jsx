@@ -4,10 +4,10 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { AsyncStatus } from '../../utils/constant';
 import useProfile from '../../hooks/useProfile';
 import useSWR from 'swr';
-import { changeProfile, read } from '../../utils/memberApi';
 import { Alert } from 'bootstrap';
 import LoadingSpinner from "../../components/commons/LoadingSpinner";
 import ProfileField from '../../components/members/ProfileField';
+import { changeProfile, read } from '../../utils/memberAPI';
 
 
 const MemberRead = () => {

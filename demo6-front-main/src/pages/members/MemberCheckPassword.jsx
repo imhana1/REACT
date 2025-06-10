@@ -9,9 +9,9 @@ import usePassword from "../../hooks/usePassword";
 import { Alert } from "react-bootstrap";
 import TextField from "../../components/commons/TextField";
 import BlockButton from "../../components/commons/BlockButton";
-import { checkPassword } from "../../utils/memberApi";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { checkPassword } from "../../utils/memberAPI";
 
 const MemberCheckPassword = () => {
     // 1. 훅 정의

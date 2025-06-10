@@ -12,6 +12,8 @@ export const checkPassword = (password) => api.get(`/api/members/password?passwo
 
 export const read = () => api.get('/api/members/member').then(res => res.data);
 
+export const changePassword=(object)=>api.patch(`/api/members/password`, new URLSearchParams(object));
+
 export const changeProfile = (formData) => api.put('/api/members/profile', formData);
 
 // username과 password를 urlencoding방식으로 보내려면  URLSearchParams 객체를 생성한다
