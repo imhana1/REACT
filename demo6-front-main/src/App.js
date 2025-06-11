@@ -41,7 +41,7 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element = {<PostList />} />
-            <Route path="/post/read" element = {<PublicRoute element={<PostRead />} /> } />
+            <Route path="/post/read" element = {<PostRead />} />
             <Route path="/post/write" element = {<PublicRoute element={<PostWrite />} /> } />
             <Route path="/post/update" element = {<PublicRoute element={<PostUpdate />} /> } />
             <Route path="/member/signup" element = {<PublicRoute element={<MemberSignup />} /> } />

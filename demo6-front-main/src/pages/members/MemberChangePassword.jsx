@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import usePassword from '../../hooks/usePassword'
-import useConfirmPassword from '../../hooks/useComfirmPassword';
 import TextField from '../../components/commons/TextField';
 import BlockButton from '../../components/commons/BlockButton';
 import { AsyncStatus } from '../../utils/constant';
 import { Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { changePassword } from '../../utils/memberAPI';
+import { changePassword } from '../../utils/memberApi';
+import useConfirmPassword from '../../hooks/useConfirmPassword';
 
 function MemberChangePassword() {
   // 1. 필요한 기능들(작성 상태, 비밀번호, 새 비밀번호, 새 비밀번호 확인) 훅을 생성

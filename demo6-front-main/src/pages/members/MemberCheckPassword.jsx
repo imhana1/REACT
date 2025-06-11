@@ -11,7 +11,7 @@ import TextField from "../../components/commons/TextField";
 import BlockButton from "../../components/commons/BlockButton";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { checkPassword } from "../../utils/memberAPI";
+import { checkPassword } from "../../utils/memberApi";
 
 const MemberCheckPassword = () => {
     // 1. 훅 정의

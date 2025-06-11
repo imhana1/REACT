@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import { Alert } from 'bootstrap';
 import LoadingSpinner from "../../components/commons/LoadingSpinner";
 import ProfileField from '../../components/members/ProfileField';
-import { changeProfile, read } from '../../utils/memberAPI';
+import { changeProfile, read } from '../../utils/memberApi';
 
 
 const MemberRead = () => {
