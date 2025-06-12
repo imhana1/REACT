@@ -1,0 +1,161 @@
+ws://localhost:8080/ws
+ws://localhost:8080/sub 이하 경로를 구독
+ws://localhost:8080/pub 이하 경로로 발송
+
+// "/pub/echo" 메시지 요청에 처리해, /sub/chat 구독자에게 전송
+@MessageMapping("/echo")
+@SendTo("/sub/chat")
+
+// /pub/echo2 경로 요청, /sub/chat2 구독자에게 전송
+@MessageMapping("/echo2")
+@SendTo("/sub/chat2")
+
+useEffect는 React의 렌더링 사이클 외부에서 처리해야 하는 일을 수행할 때 사용
+
+입력값을 다루는 훅 (예: useInput)
+- 이 경우에는 보통 useEffect 없이 상태(state) 기반으로 처리합니다.
+- 입력값이 바뀌는 건 의도된 사용자 상호작용이고, 이로 인한 재렌더링은 문제가 아님
+- 외부 리소스와의 연결이나 부수 효과가 없으므로 useEffect는 필요 없음
+
+WebSocket 훅 (useWebSocket)
+- 이건 외부 리소스(WebSocket) 와의 연결이기 때문에, 라이프사이클에 맞춰 부수 효과를 제어할 필요가 있음
+
+const [data, setData] = useState(null);
+const [status, setStatus] = useState(State.초기화);
+useEffect(()=>{
+  setStatus(State.Loading);
+  fuction fetch() {
+     try {
+        const response = axios.어쩌구
+        sestData(response.data);
+        setStatus(State.SUCCESS);
+     } catch(err) {
+        setStatus(State.FAIL);
+     }
+  }
+})
+
+
+
+좋은 설계 감각이에요.
+결론부터 말하면, "전역 WebSocket" 하나만 쓰면 됩니다.
+굳이 지역 WebSocket을 별도로 둘 필요는 없어요. 대신, 메시지 구독 및 처리 방식만 잘 나누면 됩니다.
+
+✅ 요구사항 요약
+누군가가 메시지를 보내면
+
+어디에 있든 toastr 알림
+
+채팅창에 있을 경우에는 그 채팅창에서 메시지 출력
+
+💡 핵심 설계 개념:
+👉 WebSocket 연결은 전역 하나로 유지,
+👉 구독 처리 함수만 상황에 따라 다르게 구성
+
+🧠 설계 구조 예시
+1. 전역 WebSocket store
+js
+복사
+편집
+// socketStore.js
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+
+class SocketStore {
+  client = null;
+
+  connect = () => {
+    this.client = new Client({
+      webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+      reconnectDelay: 5000,
+      onConnect: () => {
+        console.log("✅ STOMP 연결됨");
+
+        // 공통 구독: toastr 알림용
+        this.client.subscribe("/sub/chat2", (message) => {
+          const payload = JSON.parse(message.body);
+          if (!this.chatCallback) {
+            // 채팅창이 안 떠 있으면 toastr만 띄움
+            toast.info(`💬 ${payload.sender}님으로부터 메시지가 도착했습니다.`);
+          } else {
+            this.chatCallback(payload); // 채팅창 콜백
+          }
+        });
+      },
+      onStompError: (frame) => console.error("STOMP 오류:", frame),
+    });
+
+    this.client.activate();
+  };
+
+  chatCallback = null; // 채팅 컴포넌트에서 등록하는 함수
+
+  setChatCallback = (fn) => {
+    this.chatCallback = fn;
+  };
+
+  clearChatCallback = () => {
+    this.chatCallback = null;
+  };
+}
+
+export const socketStore = new SocketStore();
+2. App 진입 시 WebSocket 연결
+tsx
+복사
+편집
+useEffect(() => {
+  socketStore.connect();
+}, []);
+3. 채팅 컴포넌트에서 메시지 처리 등록
+tsx
+복사
+편집
+useEffect(() => {
+  // 메시지 직접 출력
+  socketStore.setChatCallback((payload) => {
+    setMessages((prev) => [...prev, payload]);
+  });
+
+  return () => {
+    socketStore.clearChatCallback(); // 나갈 때 콜백 제거
+  };
+}, []);
+✅ 이렇게 하면
+상황	동작
+채팅창이 열려 있지 않으면	전역 WebSocket이 toastr 알림만 띄움
+채팅창이 열려 있으면	알림 대신 채팅창에서 메시지 표시
+
+💡 이 방식의 장점
+WebSocket 연결은 단 하나만 존재 → 성능 효율적
+
+처리 방식은 상황에 따라 다르게 구성 → 유지보수 쉬움
+
+채팅창 외에도 알림, 모달, 뱃지 카운트 등 확장 가능성 좋음
+
+필요하다면 unreadMessageCount 같은 전역 상태도 같이 관리할 수 있어요.
+원하시면 그쪽까지 설계 확장도 도와드릴게요.
+
+
+
+
+
+
+
+
+
+
+
+
+이 구조에서 
+
+
+메모를 보내면 메시지가 날아간다
+
+예약 하루전에 메모를 보낸다
+로그인하고, 읽지 않은 메모가 있을 때 toastr를 출력
+
+예약 한시간 전에 메시지를 날린다
+
+
+https://chatgpt.com/c/684a6d50-fe78-800b-aefc-24e92af647c3
