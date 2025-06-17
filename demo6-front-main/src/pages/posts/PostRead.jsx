@@ -1,16 +1,16 @@
-
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import LoadingSpinner from '../../components/commons/LoadingSpinner';
 import { Alert, Button } from 'react-bootstrap';
 import useAuthStore from '../../stores/useAuthStore';
-import { erase, read } from '../../utils/postAPi';
 import useSWR from 'swr';
+import { erase, read } from '../../utils/postAPi';
 import DOMPurify from 'dompurify';
 import CommentWrite from '../../components/comments/CommentWrite';
 import CommentList from '../../components/comments/CommentList';
 
-const PostRead = () => {
- // 1. 필요한 기능 가져오기
+function PostRead() {
+  // 1. 필요한 기능 가져오기
   const navigate = useNavigate();
   const username = useAuthStore(state=>state.username);
 
@@ -89,10 +89,10 @@ const PostRead = () => {
       </div>
       <div>
         {
-          isWriter && 
+          isWriter &&
           <div>
-            <Button variant='success'>변경</Button>
-            <Button variant='danger' onClick={doDeletePost}>삭제</Button>
+            <Button variant='success'>변경으로</Button>
+            <Button variant='danger' onClick={doDeletePost}>삭제하기</Button>
           </div>
         }
       </div>
@@ -102,6 +102,6 @@ const PostRead = () => {
       </div>
     </div>
   )
-};
+}
 
-export default PostRead;
+export default PostRead
