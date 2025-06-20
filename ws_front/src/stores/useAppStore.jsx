@@ -15,32 +15,31 @@ const useAppStore = create((set, get) => ({
   socket: undefined,
 
   connectWebSocket: () => {
-    if(get().socket)
-        return;
+    if (get().socket) return;
     const client = new Client({
-        // 연결이 끊어지면 대기 후 재연결 요청을 보낼 간격 설정 -> 금지
-        reconnectDelay: 0,
-        webSocketFactory:()=>new SockJS("http://localhost:8080/ws"),
-        onConnect:()=>set({socket:client})
-    })
+      // 연결이 끊어지면 대기 후 재연결 요청을 보낼 간격 설정 -> 금지
+      reconnectDelay: 0,
+      webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+      onConnect: () => set({ socket: client }),
+    });
     client.activate();
   },
 
   // 로그인 여부 확인 : F5 누르면 초기화
   checkAuth: async () => {
     try {
-        const prevUsername = get().username;
-      const res = await axios.get("/api/auth/check", { withCredentials: true });
+      const prevUsername = get().username;
+      const res = await axios.get("http://localhost:8080/api/auth/check", {
+        withCredentials: true,
+      });
       const { username, role } = res.data;
 
       // zustand에서 이전 값을 가지고 변경하는 경우가 아니라면 함수형 업데이트 불필요
       set({ username, role });
 
       // 저장된 아이디가 바뀌었다면
-      if(prevUsername !== username)
-      get().connectWebSocket();
+      if (prevUsername !== username) get().connectWebSocket();
     } catch (err) {
-        get().socket.deactive();
       set({ username: null, role: null, socket: null });
       console.log(err);
     }
@@ -54,7 +53,6 @@ const useAppStore = create((set, get) => ({
 
   // 로그아웃 설정
   setLogout: () => {
-    get().socket.deactive();
     set({ username: null, role: null, socket: null });
   },
 }));
